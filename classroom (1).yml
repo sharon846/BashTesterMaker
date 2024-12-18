@@ -1,0 +1,31 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run Lab
+      id: run-lab
+      uses: sharon846/autograding-command-grader@v1
+      with:
+        test-name: Run Lab
+        setup-command: chmod +x ./tester.sh
+        command: "./tester.sh"
+        timeout: 0.5
+        max-score: 100
+    - name: Autograding Reporter
+      uses: sharon846/autograding-grading-reporter@v1
+      env:
+        RUN-LAB_RESULTS: "${{steps.run-lab.outputs.result}}"
+      with:
+        runners: run-lab
