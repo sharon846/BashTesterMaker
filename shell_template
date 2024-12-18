@@ -1,0 +1,125 @@
+#!/bin/bash
+
+# Initialize total score
+total_score=0
+
+# Function to run a test and add to score with output comparison
+run_test() {
+  task_file=$1
+  test_name=$2
+  points=$3
+  input_data=$4
+  expected_output=$5
+  comparison_method=$6
+  mode=$7
+  input_type=$8
+
+  echo "-------------------------------------------"
+
+  if [[ "$mode" == "import" ]]; then
+    # Run in import mode
+    test_code="import ${task_file%.*};\n$input_data"
+    if output=$(echo -e "$test_code" | python - 2>&1); then
+      expected_output=$(echo -e "$expected_output" | sed -e 's/[[:space:]]*$//' | tr -d '\r')
+      output=$(echo "$output" | sed -e 's/[[:space:]]*$//' | tr -d '\r')
+      if [[ "$comparison_method" == "exact" && "$output" == "$expected_output" ]] || \
+         [[ "$comparison_method" == "contains" && "$output" == *"$expected_output"* ]]; then
+        echo "$test_name passed"
+        total_score=$((total_score + points))
+      else
+        echo "$test_name failed: output does not match expected"
+        echo "Expected: $expected_output"
+        echo "Got: $output"
+      fi
+    else
+      echo "$test_name failed to run"
+      echo "$output"
+    fi
+  elif [[ "$input_type" == "sys" ]]; then
+    # Run with arguments passed via sys.argv
+    if output=$(python "$task_file" $input_data 2>&1); then
+      expected_output=$(echo -e "$expected_output" | sed -e 's/[[:space:]]*$//' | tr -d '\r')
+      output=$(echo "$output" | sed -e 's/[[:space:]]*$//' | tr -d '\r')
+      if [[ "$comparison_method" == "exact" && "$output" == "$expected_output" ]] || \
+         [[ "$comparison_method" == "contains" && "$output" == *"$expected_output"* ]]; then
+        echo "$test_name passed"
+        total_score=$((total_score + points))
+      else
+        echo "$test_name failed: output does not match expected"
+        echo "Expected: $expected_output"
+        echo "Got: $output"
+      fi
+    else
+      echo "$test_name failed to run"
+      echo "$output"
+    fi
+  else
+    # Run as script with standard input
+    if output=$(echo -e "$input_data" | python "$task_file" 2>&1); then
+      expected_output=$(echo -e "$expected_output" | sed -e 's/[[:space:]]*$//' | tr -d '\r')
+      output=$(echo "$output" | sed -e 's/[[:space:]]*$//' | tr -d '\r')
+      if [[ "$comparison_method" == "exact" && "$output" == "$expected_output" ]] || \
+         [[ "$comparison_method" == "contains" && "$output" == *"$expected_output"* ]]; then
+        echo "$test_name passed"
+        total_score=$((total_score + points))
+      else
+        echo "$test_name failed: output does not match expected"
+        echo "Expected: $expected_output"
+        echo "Got: $output"
+      fi
+    else
+      echo "$test_name failed to run"
+      echo "$output"
+    fi
+  fi
+}
+
+# Function to run all tests for a task
+run_task() {
+  task_file=$1
+  shift
+  while [[ $# -gt 0 ]]; do
+    test_name=$1
+    points=$2
+    input_data=$3
+    expected_output=$4
+    comparison_method=$5
+    mode=${6:-script}
+    input_type=${7:-regular}
+    run_test "$task_file" "$test_name" "$points" "$input_data" "$expected_output" "$comparison_method" "$mode" "$input_type"
+    shift 7
+  done
+}
+
+# Function to run preset shell-based tests
+run_preset_test() {
+  test_name=$1
+  points=$2
+  command=$3
+  expected_output=$4
+  comparison_method=$5
+
+  echo "-------------------------------------------"
+  if output=$(eval "$command" 2>&1); then
+    expected_output=$(echo -e "$expected_output" | sed -e 's/[[:space:]]*$//' | tr -d '\r')
+    output=$(echo "$output" | sed -e 's/[[:space:]]*$//' | tr -d '\r')
+    if [[ "$comparison_method" == "exact" && "$output" == "$expected_output" ]] || \
+       [[ "$comparison_method" == "contains" && "$output" == *"$expected_output"* ]]; then
+      echo "$test_name passed"
+      total_score=$((total_score + points))
+    else
+      echo "$test_name failed: output does not match expected"
+      echo "Expected: $expected_output"
+      echo "Got: $output"
+    fi
+  else
+    echo "$test_name failed to run"
+    echo "$output"
+  fi
+}
+
+INSERT_HERE
+
+# Print total score
+echo "-------------------------------------------"
+echo "Total Score: $total_score"

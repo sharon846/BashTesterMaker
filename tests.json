@@ -1,0 +1,191 @@
+{
+  "tasks": [
+    {
+      "task_file": "task1.py",
+      "tests": [
+        {
+          "test_name": "Task1-Test1",
+          "points": 8,
+          "input_data": "(()(()))",
+          "expected_output": "True",
+          "comparison_method": "contains",
+          "mode": "script",
+          "input_type": "sys"
+        },
+        {
+          "test_name": "Task1-Test2",
+          "points": 8,
+          "input_data": "())(",
+          "expected_output": "False",
+          "comparison_method": "contains",
+          "mode": "script",
+          "input_type": "sys"
+        },
+        {
+          "test_name": "Task1-Test3",
+          "points": 8,
+          "input_data": "()((()))(())",
+          "expected_output": "True",
+          "comparison_method": "contains",
+          "mode": "script",
+          "input_type": "sys"
+        }
+      ]
+    },
+    {
+      "task_file": "task2.py",
+      "tests": [
+        {
+          "test_name": "Task2-Test1",
+          "points": 12,
+          "input_data": "n=3\nprint(task2.total_ways(n))",
+          "expected_output": "5",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": ""
+        },
+        {
+          "test_name": "Task2-Test2",
+          "points": 12,
+          "input_data": "n=8\nprint(task2.total_ways(n))",
+          "expected_output": "55",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": ""
+        },
+        {
+          "test_name": "Task2-Test3",
+          "points": 12,
+          "input_data": "n=1\nprint(task2.total_ways(n))",
+          "expected_output": "2",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": ""
+        },
+        {
+          "test_name": "Task2-Test4",
+          "points": 12,
+          "input_data": "n=2\nprint(task2.total_ways(n))",
+          "expected_output": "3",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": ""
+        },
+        {
+          "test_name": "Task2-Test5",
+          "points": 12,
+          "input_data": "n=12\nprint(task2.total_ways(n))",
+          "expected_output": "377",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": ""
+        }
+      ]
+    },
+    {
+      "task_file": "task3.py",
+      "tests": [
+        {
+          "test_name": "task3-preset",
+          "points": 4,
+          "input_data": "[ $(grep -o 'generate_binary_strings' task3.py | wc -l) -gt 2 ] && echo 'String found!' || echo 'String not found.'",
+          "expected_output": "String found!",
+          "comparison_method": "exact",
+          "mode": "",
+          "input_type": ""
+        },
+        {
+          "test_name": "Task3-Test1",
+          "points": 4,
+          "input_data": "n=2\ntask3.generate_binary_strings(n)",
+          "expected_output": "00\n01\n10\n11",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": "regular"
+        },
+        {
+          "test_name": "Task3-Test2",
+          "points": 4,
+          "input_data": "n=3\ntask3.generate_binary_strings(n)",
+          "expected_output": "000\n001\n010\n011\n100\n101\n110\n111",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": "regular"
+        },
+        {
+          "test_name": "Task3-Test3",
+          "points": 4,
+          "input_data": "n=4\ntask3.generate_binary_strings(n)",
+          "expected_output": "0000\n0001\n0010\n0011\n0100\n0101\n0110\n0111\n1000\n1001\n1010\n1011\n1100\n1101\n1110\n1111",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": "regular"
+        }
+      ]
+    },
+    {
+      "task_file": "task4.py",
+      "tests": [
+        {
+          "test_name": "Task4-Test1",
+          "points": 0,
+          "input_data": "array=[2, 3, 1, 2]\ntask4.print_sum_triangle(array)",
+          "expected_output": "16\n9 7\n5 4 3\n2 3 1 2",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": "regular"
+        },
+        {
+          "test_name": "Task4-Test2",
+          "points": 0,
+          "input_data": "array=[4, 3, 2, 1]\ntask4.print_sum_triangle(array)",
+          "expected_output": "20\n12 8\n7 5 3\n4 3 2 1",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": "regular"
+        },
+        {
+          "test_name": "Task4-Test3",
+          "points": 0,
+          "input_data": "array=[1, 1, 1, 1]\ntask4.print_sum_triangle(array)",
+          "expected_output": "8\n4 4\n2 2 2\n1 1 1 1",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": "regular"
+        }
+      ]
+    },
+    {
+      "task_file": "task5.py",
+      "tests": [
+        {
+          "test_name": "Task5-Test1",
+          "points": 0,
+          "input_data": "weights=[3, 9, 7, 1]\nsubset_sum=10\nprint(task5.count_subsets(weights, subset_sum))",
+          "expected_output": "2",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": "regular"
+        },
+        {
+          "test_name": "Task5-Test2",
+          "points": 0,
+          "input_data": "weights=[2, 3, 1, 4, 6]\nsubset_sum=7\nprint(task5.count_subsets(weights, subset_sum))",
+          "expected_output": "3",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": "regular"
+        },
+        {
+          "test_name": "Task5-Test3",
+          "points": 0,
+          "input_data": "weights=[5, 5, 5, 5]\nsubset_sum=10\nprint(task5.count_subsets(weights, subset_sum))",
+          "expected_output": "6",
+          "comparison_method": "exact",
+          "mode": "import",
+          "input_type": "regular"
+        }
+      ]
+    }
+  ]
+}
