@@ -2,6 +2,7 @@
 
 # Initialize total score
 total_score=0
+FAILED_TESTS=()
 
 # Function to run a test and add to score with output comparison
 run_test() {
@@ -27,11 +28,18 @@ run_test() {
         echo "$test_name passed"
         total_score=$((total_score + points))
       else
+        FAILED_TESTS+=("$test_name")
         echo "$test_name failed: output does not match expected"
-        echo "Expected: $expected_output"
+        
+        input_data=$(echo -e "\n$input_data" | sed -e 's/[[:space:]]*$//' | tr -d '\r')
+        echo "Command: $input_data"
+        echo ""
         echo "Got: $output"
+        echo ""
+        echo "Expected: $expected_output"
       fi
     else
+      FAILED_TESTS+=("$test_name")
       echo "$test_name failed to run"
       echo "$output"
     fi
@@ -45,11 +53,18 @@ run_test() {
         echo "$test_name passed"
         total_score=$((total_score + points))
       else
+        FAILED_TESTS+=("$test_name")
         echo "$test_name failed: output does not match expected"
-        echo "Expected: $expected_output"
+
+        input_data=$(echo -e "\n$input_data" | sed -e 's/[[:space:]]*$//' | tr -d '\r')
+        echo "Input: $input_data"
+        echo ""
         echo "Got: $output"
+        echo ""
+        echo "Expected: $expected_output"
       fi
     else
+      FAILED_TESTS+=("$test_name")
       echo "$test_name failed to run"
       echo "$output"
     fi
@@ -63,11 +78,18 @@ run_test() {
         echo "$test_name passed"
         total_score=$((total_score + points))
       else
+        FAILED_TESTS+=("$test_name")
         echo "$test_name failed: output does not match expected"
-        echo "Expected: $expected_output"
+
+        input_data=$(echo -e "\n$input_data" | sed -e 's/[[:space:]]*$//' | tr -d '\r')
+        echo "Input: $input_data"
+        echo ""
         echo "Got: $output"
+        echo ""
+        echo "Expected: $expected_output"
       fi
     else
+      FAILED_TESTS+=("$test_name")
       echo "$test_name failed to run"
       echo "$output"
     fi
@@ -108,11 +130,13 @@ run_preset_test() {
       echo "$test_name passed"
       total_score=$((total_score + points))
     else
-      echo "$test_name failed: output does not match expected"
-      echo "Expected: $expected_output"
-      echo "Got: $output"
+      FAILED_TESTS+=("$test_name")
+      echo "$test_name failed: your code does not follow the rules"
+      #echo "Expected: $expected_output"
+      #echo "Got: $output"
     fi
   else
+    FAILED_TESTS+=("$test_name")
     echo "$test_name failed to run"
     echo "$output"
   fi
@@ -120,6 +144,8 @@ run_preset_test() {
 
 INSERT_HERE
 
-# Print total score
+# Final printing
 echo "-------------------------------------------"
+failed=$(IFS=,; echo "${FAILED_TESTS[*]}")
+echo "Failed in: $failed"
 echo "Total Score: $total_score"
