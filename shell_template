@@ -146,6 +146,7 @@ INSERT_HERE
 
 # Final printing
 echo "-------------------------------------------"
+echo "If your tests have failed, you can use https://text-compare.com to compare expected vs got"
 failed=$(IFS=,; echo "${FAILED_TESTS[*]}")
 echo "Failed in: $failed"
 echo "Total Score: $total_score"
