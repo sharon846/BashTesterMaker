@@ -8,7 +8,7 @@
           "points": 8,
           "input_data": "(()(()))",
           "expected_output": "True",
-          "comparison_method": "contains",
+          "comparison_method": "containds",
           "mode": "import",
           "input_type": ""
         },
