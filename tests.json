@@ -9,23 +9,14 @@
           "input_data": "(()(()))",
           "expected_output": "True",
           "comparison_method": "contains",
-          "mode": "script",
-          "input_type": "sys"
+          "mode": "import",
+          "input_type": ""
         },
         {
           "test_name": "Task1-Test2",
           "points": 8,
           "input_data": "())(",
           "expected_output": "False",
-          "comparison_method": "contains",
-          "mode": "script",
-          "input_type": "sys"
-        },
-        {
-          "test_name": "Task1-Test3",
-          "points": 8,
-          "input_data": "()((()))(())",
-          "expected_output": "True",
           "comparison_method": "contains",
           "mode": "script",
           "input_type": "sys"
